@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東大英語 予想問題集 全10回</title>
+    <title>東大英語 予想問題集</title>
     <style>
         :root {
             --primary-color: #1a237e;
             --accent-color: #c62828;
             --text-color: #333;
+            --bg-color: #f9f9f9;
         }
         body {
-            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
             margin: 0; padding: 0;
             color: var(--text-color);
             line-height: 1.6;
-            background-color: #f9f9f9;
+            background-color: var(--bg-color);
         }
         
         /* Header & Navigation */
@@ -38,10 +39,10 @@
         .nav-overlay {
             height: 100%; width: 0; position: fixed; z-index: 1001;
             top: 0; left: 0; background-color: rgba(26, 35, 126, 0.95);
-            overflow-x: hidden; transition: 0.5s; padding-top: 60px;
+            overflow-x: hidden; transition: 0.4s; padding-top: 60px;
         }
         .nav-overlay a {
-            padding: 8px 8px 8px 32px; text-decoration: none; font-size: 1.1rem;
+            padding: 10px 10px 10px 32px; text-decoration: none; font-size: 1.1rem;
             color: #bbb; display: block; transition: 0.3s; cursor: pointer;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
@@ -61,7 +62,7 @@
 
         .question-box { border: 1px solid #ddd; padding: 20px; margin: 15px 0; background-color: #fff; border-radius: 4px; }
         
-        /* Answer Area Styles */
+        /* Answer Area & Word Count */
         .answer-area {
             width: 100%;
             height: 120px;
@@ -75,6 +76,20 @@
             resize: vertical;
         }
 
+        .word-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+        
+        /* Limits indicator (optional styling) */
+        .word-count.safe { color: #2e7d32; } /* Green */
+        .word-count.danger { color: #c62828; } /* Red */
+
         .action-btn {
             background-color: var(--accent-color);
             color: white;
@@ -83,7 +98,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.95rem;
-            margin-top: 10px;
+            margin-top: 5px;
             transition: background 0.3s;
             display: flex;
             align-items: center;
@@ -98,13 +113,12 @@
         .model-answer { background-color: #f1f8e9; padding: 15px; border-left: 4px solid #4caf50; font-family: "Georgia", serif; margin: 10px 0; line-height: 1.5; }
         .underline { text-decoration: underline; text-decoration-color: var(--accent-color); text-decoration-thickness: 2px; }
         .explanation { font-size: 0.95rem; margin-top: 10px; }
-        .idioms-list { background-color: #fff3e0; padding: 10px 15px; border-radius: 4px; font-size: 0.9rem; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>東大英語 予想問題集 (Vol.1-10)</h1>
+    <h1>東大英語 予想問題集 全10回</h1>
     <button class="menu-btn" onclick="openNav()">&#9776; MENU</button>
 </header>
 
@@ -236,14 +250,8 @@
         </div>
         <textarea class="answer-area" id="a6a-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q6a-text', 'a6a-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                I believe that shifting to a cashless society is beneficial. It offers convenience and speed in daily transactions, reducing the need to carry physical money and the risk of theft. Moreover, digital records make it easier to track expenses, which helps prevent tax evasion and crime. Although privacy concerns exist, the efficiency and security provided by cashless systems outweigh the drawbacks. (79 words)
-            </div>
-            <div class="explanation">
-                <p><strong>解説:</strong> 利便性・防犯（Pros）とプライバシー・災害時の脆弱性（Cons）を天秤にかける典型的な社会問題。</p>
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">I believe that shifting to a cashless society is beneficial. It offers convenience and speed in daily transactions, reducing the need to carry physical money and the risk of theft. Moreover, digital records make it easier to track expenses. Although privacy concerns exist, the efficiency and security provided by cashless systems outweigh the drawbacks. (59 words)</div>
         </details>
 
         <h3>2(B) 和文英訳</h3>
@@ -253,14 +261,8 @@
         </div>
         <textarea class="answer-area" id="a6b-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q6b-text', 'a6b-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                However, living in modern offices and homes equipped with air conditioning, we may be losing the ability to perceive subtle changes in the seasons. Comfort indoors is prioritized over what is happening outside the window. This "disconnection" from nature may be dulling human sensibilities more than we imagine.
-            </div>
-            <div class="explanation">
-                <p><strong>語彙:</strong> equipped with (備わった), perceive (知覚する), prioritize A over B (BよりAを優先する), dull (鈍らせる).</p>
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">However, living in modern offices and homes equipped with air conditioning, we may be losing the ability to perceive subtle changes in the seasons. Comfort indoors is prioritized over what is happening outside the window. This "disconnection" from nature may be dulling human sensibilities more than we imagine.</div>
         </details>
     </div>
 
@@ -272,11 +274,8 @@
         </div>
         <textarea class="answer-area" id="a7a-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q7a-text', 'a7a-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                I oppose mandatory voting. While high voter turnout is desirable, forcing people to vote does not guarantee a thoughtful choice. It may lead to uninformed votes cast merely to avoid penalties, which undermines the democratic process. Instead of coercion, we should focus on education and making politics more relevant to citizens so that they participate voluntarily. (72 words)
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">I oppose mandatory voting. While high voter turnout is desirable, forcing people to vote does not guarantee a thoughtful choice. It may lead to uninformed votes cast merely to avoid penalties, which undermines the democratic process. Instead of coercion, we should focus on education and making politics more relevant to citizens so that they participate voluntarily. (72 words)</div>
         </details>
 
         <h3>2(B) 和文英訳</h3>
@@ -286,14 +285,8 @@
         </div>
         <textarea class="answer-area" id="a7b-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q7b-text', 'a7b-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                However, we should not underestimate the role of "luck" in life. Happening to be born in a good era or meeting an excellent mentor are factors that cannot be controlled by one's own efforts. Being overconfident that one's success is entirely due to one's own ability is arrogant and can lead to a lack of imagination regarding others.
-            </div>
-            <div class="explanation">
-                <p><strong>語彙:</strong> underestimate (過小評価する), happen to do (たまたま～する), arrogant (傲慢な).</p>
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">However, we should not underestimate the role of "luck" in life. Happening to be born in a good era or meeting an excellent mentor are factors that cannot be controlled by one's own efforts. Being overconfident that one's success is entirely due to one's own ability is arrogant and can lead to a lack of imagination regarding others.</div>
         </details>
     </div>
 
@@ -305,11 +298,8 @@
         </div>
         <textarea class="answer-area" id="a8a-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q8a-text', 'a8a-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                I do not think tradition necessarily hinders progress. Rather, tradition provides a foundation upon which innovation can be built. For example, traditional Japanese architecture has influenced modern earthquake-resistant designs. Progress is not about destroying the past, but about reinterpreting it for the future. Therefore, respecting tradition can actually inspire new ideas and sustainable development. (70 words)
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">I do not think tradition necessarily hinders progress. Rather, tradition provides a foundation upon which innovation can be built. For example, traditional Japanese architecture has influenced modern earthquake-resistant designs. Progress is not about destroying the past, but about reinterpreting it for the future. Therefore, respecting tradition can actually inspire new ideas and sustainable development. (70 words)</div>
         </details>
 
         <h3>2(B) 和文英訳</h3>
@@ -319,14 +309,8 @@
         </div>
         <textarea class="answer-area" id="a8b-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q8b-text', 'a8b-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                However, clothing exists not merely to protect the body. It is a sign that silently conveys who one is and to which group one belongs. It is precisely the seemingly irrational decorations that distinguish humans from other animals and play an important role in maintaining complex social relationships.
-            </div>
-            <div class="explanation">
-                <p><strong>語彙:</strong> convey (伝える), irrational (不合理な), distinguish A from B (AとBを区別する).</p>
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">However, clothing exists not merely to protect the body. It is a sign that silently conveys who one is and to which group one belongs. It is precisely the seemingly irrational decorations that distinguish humans from other animals and play an important role in maintaining complex social relationships.</div>
         </details>
     </div>
 
@@ -338,11 +322,8 @@
         </div>
         <textarea class="answer-area" id="a9a-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q9a-text', 'a9a-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                I agree that remote work can be more productive. Without the stress and time required for commuting, employees can dedicate more energy to their actual work. Furthermore, a quiet environment at home often allows for deeper concentration than a noisy office. Although communication requires more effort, the flexibility of remote work generally leads to higher efficiency and job satisfaction. (76 words)
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">I agree that remote work can be more productive. Without the stress and time required for commuting, employees can dedicate more energy to their actual work. Furthermore, a quiet environment at home often allows for deeper concentration than a noisy office. Although communication requires more effort, the flexibility of remote work generally leads to higher efficiency. (71 words)</div>
         </details>
 
         <h3>2(B) 和文英訳</h3>
@@ -352,14 +333,8 @@
         </div>
         <textarea class="answer-area" id="a9b-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q9b-text', 'a9b-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                Truly listening to someone is an active attempt to try to grasp the emotions and intentions behind their words. Only when we suspend our own judgment and have the courage to immerse ourselves in the other person's world can we connect with others on a deep level.
-            </div>
-            <div class="explanation">
-                <p><strong>語彙:</strong> grasp (把握する・汲み取る), suspend (保留する/一時停止する), immerse oneself in (～に没頭する/身を浸す).</p>
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">Truly listening to someone is an active attempt to try to grasp the emotions and intentions behind their words. Only when we suspend our own judgment and have the courage to immerse ourselves in the other person's world can we connect with others on a deep level.</div>
         </details>
     </div>
 
@@ -372,11 +347,8 @@
         </div>
         <textarea class="answer-area" id="a10a-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q10a-text', 'a10a-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                I strongly agree with Aristotle. Many people seek happiness in external factors like wealth or status, but these are unstable and fleeting. True happiness comes from one's mindset and how we interpret our circumstances. Even in difficult situations, we can choose to be positive. Therefore, happiness is a choice we make, not something we find. (70 words)
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">I strongly agree with Aristotle. Many people seek happiness in external factors like wealth or status, but these are unstable and fleeting. True happiness comes from one's mindset and how we interpret our circumstances. Even in difficult situations, we can choose to be positive. Therefore, happiness is a choice we make, not something we find. (70 words)</div>
         </details>
 
         <h3>2(B) 和文英訳</h3>
@@ -386,20 +358,46 @@
         </div>
         <textarea class="answer-area" id="a10b-input" placeholder="ここに解答を入力..."></textarea>
         <button class="action-btn" onclick="copyPrompt('q10b-text', 'a10b-input')">✎ 添削依頼をコピー</button>
-        <details>
-            <summary>解答例と解説を見る</summary>
-            <div class="model-answer">
-                However, being able to be alone without interference from anyone in a sea of strangers is also a kind of salvation. The anonymity of the city is the flip side of coldness, but at the same time, it offers us a space of freedom liberated from troublesome human relationships.
-            </div>
-            <div class="explanation">
-                <p><strong>語彙:</strong> interference (干渉), anonymity (匿名性), flip side (裏返し・裏面), liberated from (～から解放された).</p>
-            </div>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">However, being able to be alone without interference from anyone in a sea of strangers is also a kind of salvation. The anonymity of the city is the flip side of coldness, but at the same time, it offers us a space of freedom liberated from troublesome human relationships.</div>
         </details>
     </div>
 
 </main>
 
 <script>
+    // Auto-inject word counters and event listeners
+    document.addEventListener("DOMContentLoaded", function() {
+        const textareas = document.querySelectorAll('.answer-area');
+        
+        textareas.forEach(textarea => {
+            // Create the counter element
+            const counterDiv = document.createElement('div');
+            counterDiv.className = 'word-count';
+            counterDiv.innerText = 'Words: 0';
+            
+            // Insert it after the textarea (before the button)
+            textarea.parentNode.insertBefore(counterDiv, textarea.nextSibling);
+            
+            // Add event listener for real-time counting
+            textarea.addEventListener('input', function() {
+                const text = this.value.trim();
+                // Split by whitespace to count English words. 
+                // Filter out empty strings to avoid counting spaces as words.
+                const count = text === '' ? 0 : text.split(/\s+/).length;
+                
+                counterDiv.innerText = `Words: ${count}`;
+                
+                // Optional color change
+                if (count >= 60 && count <= 80) {
+                    counterDiv.className = 'word-count safe';
+                } else {
+                    counterDiv.className = 'word-count';
+                }
+            });
+        });
+    });
+
     function showSet(setId) {
         const sets = document.getElementsByClassName('problem-set');
         for (let i = 0; i < sets.length; i++) {
@@ -426,7 +424,7 @@
         }
 
         const prompt = `
-あなたは優秀な英語教師です。以下の東大入試形式の英作文予想問題に対する私の解答を添削・採点してください。
+あなたは優秀な英語教師です。以下の東大入試の英作文予想問題に対する私の解答を添削・採点してください。
 
 【問題】
 ${questionText}
@@ -441,7 +439,7 @@ ${userAnswer}
 `;
 
         navigator.clipboard.writeText(prompt).then(() => {
-            alert("添削依頼文をコピーしました！\n\nお好みのAIにペーストして送信してください。");
+            alert("添削依頼文をコピーした。\n\nお好みのAIにペーストして送信しろ。");
         }, (err) => {
             console.error('コピーに失敗しました: ', err);
             alert("コピーに失敗しました。手動でコピーしてください。");
