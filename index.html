@@ -10,6 +10,7 @@
             --accent-color: #c62828;
             --text-color: #333;
             --bg-color: #f9f9f9;
+            --timer-bg: #e8eaf6;
         }
         body {
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
@@ -62,14 +63,49 @@
 
         .question-box { border: 1px solid #ddd; padding: 20px; margin: 15px 0; background-color: #fff; border-radius: 4px; }
         
-        /* Answer Area & Word Count */
+        /* Timer Toolbar */
+        .timer-toolbar {
+            display: flex;
+            align-items: center;
+            background-color: var(--timer-bg);
+            padding: 8px 15px;
+            border-radius: 4px 4px 0 0;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            margin-top: 15px;
+        }
+
+        .timer-display {
+            font-family: "Courier New", monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 15px;
+            min-width: 80px;
+        }
+
+        .timer-btn {
+            background-color: white;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            padding: 2px 10px;
+            margin-right: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .timer-btn:hover { background-color: #f0f0f0; }
+        .timer-btn.active { background-color: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+        /* Answer Area */
         .answer-area {
             width: 100%;
             height: 120px;
             padding: 10px;
-            margin-top: 10px;
+            /* margin-top: 10px; removed margin-top as it connects to timer now */
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 0 0 4px 4px; /* Rounded bottom only */
             font-family: "Courier New", Courier, monospace;
             font-size: 1rem;
             box-sizing: border-box;
@@ -85,11 +121,8 @@
             font-weight: bold;
             font-family: sans-serif;
         }
+        .word-count.safe { color: #2e7d32; } 
         
-        /* Limits indicator (optional styling) */
-        .word-count.safe { color: #2e7d32; } /* Green */
-        .word-count.danger { color: #c62828; } /* Red */
-
         .action-btn {
             background-color: var(--accent-color);
             color: white;
@@ -106,10 +139,8 @@
         }
         .action-btn:hover { background-color: #b71c1c; }
         
-        /* Model Answer Toggle */
         details { margin-top: 15px; border: 1px solid #eee; padding: 10px; border-radius: 4px; background-color: #fafafa; }
         summary { cursor: pointer; font-weight: bold; color: var(--primary-color); }
-        
         .model-answer { background-color: #f1f8e9; padding: 15px; border-left: 4px solid #4caf50; font-family: "Georgia", serif; margin: 10px 0; line-height: 1.5; }
         .underline { text-decoration: underline; text-decoration-color: var(--accent-color); text-decoration-thickness: 2px; }
         .explanation { font-size: 0.95rem; margin-top: 10px; }
@@ -118,7 +149,7 @@
 <body>
 
 <header>
-    <h1>東大英語 予想問題集 全10回</h1>
+    <h1>東大英語 予想問題集</h1>
     <button class="menu-btn" onclick="openNav()">&#9776; MENU</button>
 </header>
 
@@ -366,29 +397,90 @@
 </main>
 
 <script>
-    // Auto-inject word counters and event listeners
     document.addEventListener("DOMContentLoaded", function() {
         const textareas = document.querySelectorAll('.answer-area');
         
-        textareas.forEach(textarea => {
-            // Create the counter element
+        textareas.forEach((textarea, index) => {
+            // --- 1. Timer Setup ---
+            const timerDiv = document.createElement('div');
+            timerDiv.className = 'timer-toolbar';
+            
+            // Timer logic variables
+            let seconds = 0;
+            let interval = null;
+            let isRunning = false;
+            
+            // Elements
+            const timeDisplay = document.createElement('span');
+            timeDisplay.className = 'timer-display';
+            timeDisplay.innerText = "00:00";
+            
+            const startBtn = document.createElement('button');
+            startBtn.className = 'timer-btn';
+            startBtn.innerText = "Start";
+            
+            const stopBtn = document.createElement('button');
+            stopBtn.className = 'timer-btn';
+            stopBtn.innerText = "Stop";
+            
+            const resetBtn = document.createElement('button');
+            resetBtn.className = 'timer-btn';
+            resetBtn.innerText = "Reset";
+            
+            // Format time helper
+            const formatTime = (sec) => {
+                const m = Math.floor(sec / 60).toString().padStart(2, '0');
+                const s = (sec % 60).toString().padStart(2, '0');
+                return `${m}:${s}`;
+            };
+            
+            // Logic
+            startBtn.onclick = () => {
+                if (isRunning) return;
+                isRunning = true;
+                startBtn.classList.add('active');
+                interval = setInterval(() => {
+                    seconds++;
+                    timeDisplay.innerText = formatTime(seconds);
+                }, 1000);
+            };
+            
+            stopBtn.onclick = () => {
+                if (!isRunning) return;
+                isRunning = false;
+                startBtn.classList.remove('active');
+                clearInterval(interval);
+            };
+            
+            resetBtn.onclick = () => {
+                stopBtn.click(); // ensure stopped
+                seconds = 0;
+                timeDisplay.innerText = "00:00";
+            };
+            
+            // Assemble Timer Toolbar
+            timerDiv.appendChild(timeDisplay);
+            timerDiv.appendChild(startBtn);
+            timerDiv.appendChild(stopBtn);
+            timerDiv.appendChild(resetBtn);
+            
+            // Insert Timer *before* textarea
+            textarea.parentNode.insertBefore(timerDiv, textarea);
+            
+            
+            // --- 2. Word Count Setup ---
             const counterDiv = document.createElement('div');
             counterDiv.className = 'word-count';
             counterDiv.innerText = 'Words: 0';
             
-            // Insert it after the textarea (before the button)
+            // Insert Word Count *after* textarea
             textarea.parentNode.insertBefore(counterDiv, textarea.nextSibling);
             
-            // Add event listener for real-time counting
             textarea.addEventListener('input', function() {
                 const text = this.value.trim();
-                // Split by whitespace to count English words. 
-                // Filter out empty strings to avoid counting spaces as words.
                 const count = text === '' ? 0 : text.split(/\s+/).length;
-                
                 counterDiv.innerText = `Words: ${count}`;
                 
-                // Optional color change
                 if (count >= 60 && count <= 80) {
                     counterDiv.className = 'word-count safe';
                 } else {
