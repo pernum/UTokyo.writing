@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東大英語 予想問題集 全10回</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --accent-color: #c62828;
+            --text-color: #333;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            margin: 0; padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        h1 { margin: 0; font-size: 1.2rem; }
+        .menu-btn { font-size: 1.5rem; cursor: pointer; background: none; border: none; color: white; padding: 0 15px; }
+
+        /* Navigation Overlay */
+        .nav-overlay {
+            height: 100%; width: 0; position: fixed; z-index: 1001;
+            top: 0; left: 0; background-color: rgba(26, 35, 126, 0.95);
+            overflow-x: hidden; transition: 0.5s; padding-top: 60px;
+        }
+        .nav-overlay a {
+            padding: 8px 8px 8px 32px; text-decoration: none; font-size: 1.1rem;
+            color: #bbb; display: block; transition: 0.3s; cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .nav-overlay a:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+        .nav-overlay .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; border: none; }
+
+        /* Main Content */
+        main { margin-top: 80px; padding: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+        .problem-set { display: none; animation: fadeIn 0.5s; background: white; padding: 30px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .problem-set.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-top: 0; }
+        h3 { color: var(--primary-color); background-color: #e8eaf6; padding: 8px 12px; border-left: 5px solid var(--accent-color); margin-top: 30px; }
+
+        .question-box { border: 1px solid #ddd; padding: 20px; margin: 15px 0; background-color: #fff; border-radius: 4px; }
+        
+        /* Answer Area Styles */
+        .answer-area {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1rem;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .action-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .action-btn:hover { background-color: #b71c1c; }
+        
+        /* Model Answer Toggle */
+        details { margin-top: 15px; border: 1px solid #eee; padding: 10px; border-radius: 4px; background-color: #fafafa; }
+        summary { cursor: pointer; font-weight: bold; color: var(--primary-color); }
+        
+        .model-answer { background-color: #f1f8e9; padding: 15px; border-left: 4px solid #4caf50; font-family: "Georgia", serif; margin: 10px 0; line-height: 1.5; }
+        .underline { text-decoration: underline; text-decoration-color: var(--accent-color); text-decoration-thickness: 2px; }
+        .explanation { font-size: 0.95rem; margin-top: 10px; }
+        .idioms-list { background-color: #fff3e0; padding: 10px 15px; border-radius: 4px; font-size: 0.9rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>東大英語 予想問題集 (Vol.1-10)</h1>
+    <button class="menu-btn" onclick="openNav()">&#9776; MENU</button>
+</header>
+
+<div id="myNav" class="nav-overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a onclick="showSet('set1')">第1回: Technology & Self</a>
+    <a onclick="showSet('set2')">第2回: Education & Failure</a>
+    <a onclick="showSet('set3')">第3回: Science & Understanding</a>
+    <a onclick="showSet('set4')">第4回: Language & Culture</a>
+    <a onclick="showSet('set5')">第5回: Philosophy & Adulthood</a>
+    <a onclick="showSet('set6')">第6回: Society & Seasons</a>
+    <a onclick="showSet('set7')">第7回: Politics & Luck</a>
+    <a onclick="showSet('set8')">第8回: Tradition & Fashion</a>
+    <a onclick="showSet('set9')">第9回: Work & Listening</a>
+    <a onclick="showSet('set10')">第10回: Happiness & Cities</a>
+</div>
+
+<main>
+    <div id="set1" class="problem-set active">
+        <h2>第1回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q1a-text">
+            「AI（人工知能）の進化は、人間の創造性を奪うことになる」という意見について、あなたはどう考えるか。理由を添えて、60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a1a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q1a-text', 'a1a-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">I disagree with this opinion. While AI can generate content efficiently, true creativity stems from human emotions and unique life experiences, which machines lack. Instead of replacing us, AI will likely serve as a powerful tool that handles routine tasks, allowing humans to focus more on abstract thinking and emotional expression. Therefore, AI will not rob us of creativity but rather enhance it. (79 words)</div>
+        </details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q1b-text">
+            以下の下線部を英訳せよ。<br>
+            現代社会において「待つ」という行為は、もはや美徳ではなく時間の浪費とみなされがちだ。スマートフォンがあれば、数秒の空白さえ埋めることができる。<u>しかし、手持ち無沙汰な時間にこそ、ふとしたアイデアが生まれたり、自分自身を見つめ直したりするきっかけが潜んでいるのではないだろうか。常に何かに接続している状態は、私たちから孤独という貴重な時間を奪い去り、結果として思考の深さを浅くしてしまっているように思えてならない。</u>
+        </div>
+        <textarea class="answer-area" id="a1b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q1b-text', 'a1b-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary>
+            <div class="model-answer">However, I suspect that it is precisely in these moments of having nothing to do that we find triggers for sudden ideas or opportunities to reflect on ourselves. I cannot help but feel that being constantly connected deprives us of the precious time of solitude, and as a result, makes our thinking shallow.</div>
+        </details>
+    </div>
+
+    <div id="set2" class="problem-set">
+        <h2>第2回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q2a-text">
+            「失敗は成功のもと（Failure teaches success）」という言葉があるが、あなたがこれまでに経験した「有意義な失敗」について、その内容と学んだことを60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a2a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q2a-text', 'a2a-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">When I was in high school, I failed to qualify for the swimming team because I was overconfident and skipped practice. This failure was meaningful because it taught me that talent without effort is useless. I learned the importance of consistency and humility. Since then, I have approached every challenge with diligent preparation. (69 words)</div></details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q2b-text">
+            以下の下線部を英訳せよ。<br>
+            読書において、著者の意図を正確に読み取ることはもちろん重要だ。だが、それだけが読書の醍醐味ではない。<u>ある一節が、著者の想定していなかったような意味を持って読者の心に響くことがある。それは誤読と呼ばれるかもしれないが、その人自身の経験や記憶と結びつくことで、テキストは新しい命を吹き込まれるのだ。書かれた言葉は、作家の手を離れた瞬間から、読者との共同作業によって無限の意味を生成し始める。</u>
+        </div>
+        <textarea class="answer-area" id="a2b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q2b-text', 'a2b-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">Sometimes a certain passage touches a reader's heart with a meaning that the author never intended. This might be called misreading, but by connecting with the person's own experiences and memories, the text breathes new life. Written words begin to generate infinite meanings through collaboration with the reader from the moment they leave the writer's hands.</div></details>
+    </div>
+
+    <div id="set3" class="problem-set">
+        <h2>第3回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q3a-text">
+            もしあなたが一つだけ法律を変える、あるいは新しい法律を作ることができるとしたら、何をするか。理由を添えて、60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a3a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q3a-text', 'a3a-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">I would enact a law that mandates one year of study abroad for all university students. In today’s globalized world, understanding different cultures is essential for resolving conflicts. Many students hesitate to go abroad due to financial concerns. By making it a legal requirement with government support, we could cultivate a generation of global citizens who are open-minded and adaptable. (75 words)</div></details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q3b-text">
+            以下の下線部を英訳せよ。<br>
+            科学技術の進歩は、私たちに「知っている」という感覚を容易に与えてくれる。検索すれば答えが出る時代だ。<u>しかし、情報を手に入れることと、それを真に理解することの間には、決定的な隔たりがある。私たちは分かったつもりになって、自分で考えるという面倒なプロセスを省略してしまっていないだろうか。知識とは本来、身体的な経験や長い思索の末にようやく身につくものであり、画面上の文字を追うだけで得られるほど安易なものではないはずだ。</u>
+        </div>
+        <textarea class="answer-area" id="a3b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q3b-text', 'a3b-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">However, there is a decisive gap between acquiring information and truly understanding it. Are we not skipping the troublesome process of thinking for ourselves by assuming we understand? Knowledge is essentially something that is finally acquired after physical experience or long contemplation, and it should not be something so cheap that it can be obtained merely by scanning text on a screen.</div></details>
+    </div>
+
+    <div id="set4" class="problem-set">
+        <h2>第4回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q4a-text">
+            「沈黙は金（Silence is golden）」という格言があるが、現代社会においてもこれは有効だと考えるか。理由を添えて、60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a4a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q4a-text', 'a4a-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">I do not believe this proverb is always valid in modern society. While silence can prevent unnecessary conflict, remaining silent today is often interpreted as indifference or tacit agreement. In an era where communication is rapid and diverse, expressing one's opinion clearly is crucial for mutual understanding. Therefore, speaking up is often more valuable than staying quiet. (72 words)</div></details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q4b-text">
+            以下の下線部を英訳せよ。<br>
+            外国語を学ぶ喜びの一つは、翻訳不可能な言葉に出会うことにある。例えば、日本語の「木漏れ日」という言葉を英語一語で表すことは難しい。<u>こうした言葉の存在は、その言語を話す人々が世界をどのように切り取り、何を大切にしてきたかを教えてくれる。異なる言語を学ぶということは、単に言葉を置き換える作業ではなく、他者の目を通して世界を眺めるという、新たな視座を獲得する冒険なのである。</u>
+        </div>
+        <textarea class="answer-area" id="a4b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q4b-text', 'a4b-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">The existence of such words teaches us how the speakers of that language perceive the world and what they have cherished. Learning a different language is not merely the task of replacing words, but an adventure of acquiring a new perspective—viewing the world through the eyes of others.</div></details>
+    </div>
+
+    <div id="set5" class="problem-set">
+        <h2>第5回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q5a-text">
+            以下の引用について、あなたの考えを理由を添えて40～60語の英語で述べよ。<br>
+            "It is not the strongest of the species that survives, nor the most intelligent that survives. It is the one that is most adaptable to change." (Charles Darwin)
+        </div>
+        <textarea class="answer-area" id="a5a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q5a-text', 'a5a-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">I agree with this quote. In human society, rigid strength often leads to breaking under pressure, whereas flexibility allows us to overcome unexpected crises. For example, businesses that fail to adapt to digital changes go bankrupt, regardless of their size. Adaptability is the key to long-term survival. (47 words)</div></details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q5b-text">
+            以下の下線部を英訳せよ。<br>
+            子供の頃、早く大人になりたいと願っていた。大人は何でも自由にでき、誰にも命令されない存在に見えたからだ。<u>しかしいざ大人になってみると、本当の自由とは、好きなことをすることではなく、自分の行動に責任を持つことだと気づかされる。誰も叱ってくれないからこそ、自分自身を律しなければならない。その厳しさを知った今、守られていた子供時代の不自由さが、実は一種の特権であったと懐かしく思うことがある。</u>
+        </div>
+        <textarea class="answer-area" id="a5b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q5b-text', 'a5b-input')">✎ 添削依頼をコピー</button>
+        <details><summary>解答例を見る</summary><div class="model-answer">However, once I actually became an adult, I was made to realize that true freedom is not doing whatever one likes, but taking responsibility for one's actions. Precisely because no one scolds me, I must discipline myself. Now that I know this severity, I sometimes look back with nostalgia and feel that the lack of freedom in my protected childhood was actually a kind of privilege.</div></details>
+    </div>
+
+    <div id="set6" class="problem-set">
+        <h2>第6回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q6a-text">
+            「キャッシュレス社会への移行は良いことだ」という意見について、あなたはどう考えるか。理由を添えて、60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a6a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q6a-text', 'a6a-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                I believe that shifting to a cashless society is beneficial. It offers convenience and speed in daily transactions, reducing the need to carry physical money and the risk of theft. Moreover, digital records make it easier to track expenses, which helps prevent tax evasion and crime. Although privacy concerns exist, the efficiency and security provided by cashless systems outweigh the drawbacks. (79 words)
+            </div>
+            <div class="explanation">
+                <p><strong>解説:</strong> 利便性・防犯（Pros）とプライバシー・災害時の脆弱性（Cons）を天秤にかける典型的な社会問題。</p>
+            </div>
+        </details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q6b-text">
+            以下の下線部を英訳せよ。<br>
+            日本人は古来より、四季の移ろいに敏感であり、それを俳句や衣服に取り入れることで生活を彩ってきた。<u>しかし、空調設備の整った現代のオフィスや住宅に住む私たちは、季節の微妙な変化を感じ取る能力を失いつつあるのではないか。窓の外で何が起きているかよりも、室内の快適さが優先される。自然からの「断絶」は、私たちが思っている以上に、人間の感性を鈍らせているのかもしれない。</u>
+        </div>
+        <textarea class="answer-area" id="a6b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q6b-text', 'a6b-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                However, living in modern offices and homes equipped with air conditioning, we may be losing the ability to perceive subtle changes in the seasons. Comfort indoors is prioritized over what is happening outside the window. This "disconnection" from nature may be dulling human sensibilities more than we imagine.
+            </div>
+            <div class="explanation">
+                <p><strong>語彙:</strong> equipped with (備わった), perceive (知覚する), prioritize A over B (BよりAを優先する), dull (鈍らせる).</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="set7" class="problem-set">
+        <h2>第7回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q7a-text">
+            「選挙の投票を義務化すべきだ（Mandatory voting）」という意見について、あなたはどう考えるか。理由を添えて、60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a7a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q7a-text', 'a7a-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                I oppose mandatory voting. While high voter turnout is desirable, forcing people to vote does not guarantee a thoughtful choice. It may lead to uninformed votes cast merely to avoid penalties, which undermines the democratic process. Instead of coercion, we should focus on education and making politics more relevant to citizens so that they participate voluntarily. (72 words)
+            </div>
+        </details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q7b-text">
+            以下の下線部を英訳せよ。<br>
+            私たちは成功した人を見ると、その人が並外れた才能と努力の持ち主であると考えがちだ。もちろんそれは間違いではない。<u>だが、人生における「運」の役割を過小評価してはいけない。たまたま良い時期に生まれたり、素晴らしい指導者に出会ったりすることは、本人の努力ではどうにもならない要素だ。自らの成功を全て自分の実力だと過信することは傲慢であり、他者への想像力を欠くことにつながりかねない。</u>
+        </div>
+        <textarea class="answer-area" id="a7b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q7b-text', 'a7b-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                However, we should not underestimate the role of "luck" in life. Happening to be born in a good era or meeting an excellent mentor are factors that cannot be controlled by one's own efforts. Being overconfident that one's success is entirely due to one's own ability is arrogant and can lead to a lack of imagination regarding others.
+            </div>
+            <div class="explanation">
+                <p><strong>語彙:</strong> underestimate (過小評価する), happen to do (たまたま～する), arrogant (傲慢な).</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="set8" class="problem-set">
+        <h2>第8回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q8a-text">
+            「伝統を守ることは、時に進歩の妨げになる」という意見がある。あなたは伝統と進歩の関係をどう考えるか。60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a8a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q8a-text', 'a8a-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                I do not think tradition necessarily hinders progress. Rather, tradition provides a foundation upon which innovation can be built. For example, traditional Japanese architecture has influenced modern earthquake-resistant designs. Progress is not about destroying the past, but about reinterpreting it for the future. Therefore, respecting tradition can actually inspire new ideas and sustainable development. (70 words)
+            </div>
+        </details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q8b-text">
+            以下の下線部を英訳せよ。<br>
+            なぜ人間はネクタイを締めるのだろうか。首を絞めつけるだけで、防寒の役にも立たず、実用的な機能は何もないように思える。<u>しかし、衣服というものは単に身体を保護するためだけにあるのではない。それは、自分が何者であり、どの集団に属しているかを無言のうちに伝える記号なのである。不合理に見える装飾こそが、人間を他の動物から区別し、複雑な社会関係を維持するための重要な役割を果たしているのだ。</u>
+        </div>
+        <textarea class="answer-area" id="a8b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q8b-text', 'a8b-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                However, clothing exists not merely to protect the body. It is a sign that silently conveys who one is and to which group one belongs. It is precisely the seemingly irrational decorations that distinguish humans from other animals and play an important role in maintaining complex social relationships.
+            </div>
+            <div class="explanation">
+                <p><strong>語彙:</strong> convey (伝える), irrational (不合理な), distinguish A from B (AとBを区別する).</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="set9" class="problem-set">
+        <h2>第9回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q9a-text">
+            「リモートワーク（在宅勤務）は、オフィス勤務よりも生産的である」という意見について、賛成か反対か。理由を添えて60～80語の英語で述べよ。
+        </div>
+        <textarea class="answer-area" id="a9a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q9a-text', 'a9a-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                I agree that remote work can be more productive. Without the stress and time required for commuting, employees can dedicate more energy to their actual work. Furthermore, a quiet environment at home often allows for deeper concentration than a noisy office. Although communication requires more effort, the flexibility of remote work generally leads to higher efficiency and job satisfaction. (76 words)
+            </div>
+        </details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q9b-text">
+            以下の下線部を英訳せよ。<br>
+            「聞く」ことと「聴く」ことは似て非なるものだ。音として耳に入ってくる情報を処理するだけなら、それは受動的な行為に過ぎない。<u>真に相手の話を聴くというのは、言葉の背後にある感情や意図を汲み取ろうとする能動的な試みである。自分の判断を一旦保留にし、相手の世界に身を浸す勇気を持って初めて、私たちは他者と深いレベルでつながることができるのである。</u>
+        </div>
+        <textarea class="answer-area" id="a9b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q9b-text', 'a9b-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                Truly listening to someone is an active attempt to try to grasp the emotions and intentions behind their words. Only when we suspend our own judgment and have the courage to immerse ourselves in the other person's world can we connect with others on a deep level.
+            </div>
+            <div class="explanation">
+                <p><strong>語彙:</strong> grasp (把握する・汲み取る), suspend (保留する/一時停止する), immerse oneself in (～に没頭する/身を浸す).</p>
+            </div>
+        </details>
+    </div>
+
+    <div id="set10" class="problem-set">
+        <h2>第10回予想問題</h2>
+        <h3>2(A) 自由英作文</h3>
+        <div class="question-box" id="q10a-text">
+            以下の引用について、あなたの考えを理由を添えて40～60語の英語で述べよ。<br>
+            "Happiness depends upon ourselves." (Aristotle)
+        </div>
+        <textarea class="answer-area" id="a10a-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q10a-text', 'a10a-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                I strongly agree with Aristotle. Many people seek happiness in external factors like wealth or status, but these are unstable and fleeting. True happiness comes from one's mindset and how we interpret our circumstances. Even in difficult situations, we can choose to be positive. Therefore, happiness is a choice we make, not something we find. (70 words)
+            </div>
+        </details>
+
+        <h3>2(B) 和文英訳</h3>
+        <div class="question-box" id="q10b-text">
+            以下の下線部を英訳せよ。<br>
+            都会の生活は孤独だと言われる。確かに、満員電車で隣り合った人と会話を交わすことはまずない。<u>しかし、見知らぬ他人たちの海の中で、誰にも干渉されずに一人でいられることは、ある種の救いでもある。都会の匿名性は、冷たさの裏返しであると同時に、煩わしい人間関係から解放された自由の空間を私たちに提供してくれているのだ。</u>
+        </div>
+        <textarea class="answer-area" id="a10b-input" placeholder="ここに解答を入力..."></textarea>
+        <button class="action-btn" onclick="copyPrompt('q10b-text', 'a10b-input')">✎ 添削依頼をコピー</button>
+        <details>
+            <summary>解答例と解説を見る</summary>
+            <div class="model-answer">
+                However, being able to be alone without interference from anyone in a sea of strangers is also a kind of salvation. The anonymity of the city is the flip side of coldness, but at the same time, it offers us a space of freedom liberated from troublesome human relationships.
+            </div>
+            <div class="explanation">
+                <p><strong>語彙:</strong> interference (干渉), anonymity (匿名性), flip side (裏返し・裏面), liberated from (～から解放された).</p>
+            </div>
+        </details>
+    </div>
+
+</main>
+
+<script>
+    function showSet(setId) {
+        const sets = document.getElementsByClassName('problem-set');
+        for (let i = 0; i < sets.length; i++) {
+            sets[i].classList.remove('active');
+            sets[i].style.display = 'none';
+        }
+        const selected = document.getElementById(setId);
+        selected.style.display = 'block';
+        setTimeout(() => { selected.classList.add('active'); }, 10);
+        closeNav();
+        window.scrollTo(0, 0);
+    }
+
+    function openNav() { document.getElementById("myNav").style.width = "100%"; }
+    function closeNav() { document.getElementById("myNav").style.width = "0%"; }
+
+    function copyPrompt(questionId, answerId) {
+        const questionText = document.getElementById(questionId).innerText;
+        const userAnswer = document.getElementById(answerId).value;
+
+        if (!userAnswer.trim()) {
+            alert("解答欄が空です。まずは解答を入力してください。");
+            return;
+        }
+
+        const prompt = `
+あなたは優秀な英語教師です。以下の東大入試形式の英作文予想問題に対する私の解答を添削・採点してください。
+
+【問題】
+${questionText}
+
+【私の解答】
+${userAnswer}
+
+【依頼内容】
+1. 文法ミス、不自然な表現を指摘してください。
+2. 東大入試の基準で、より自然で論理的な表現（改善案）を提示してください。
+3. 10点満点で採点してください。
+`;
+
+        navigator.clipboard.writeText(prompt).then(() => {
+            alert("添削依頼文をコピーしました！\n\nお好みのAIにペーストして送信してください。");
+        }, (err) => {
+            console.error('コピーに失敗しました: ', err);
+            alert("コピーに失敗しました。手動でコピーしてください。");
+        });
+    }
+</script>
+
+</body>
+</html>
